@@ -10,9 +10,13 @@ To build, run `./build.sh` in the directory you downloaded the source code to.
 
 To clean, run `./clean.sh` in the directory you downloaded the source code to.
 
-Building will create the header file `unicode-c.h` in this directory.
+Building will create the header file `unidecode-c.h` in this directory, and a utility program `unidecode-c`.
 
-## Functions
+## Utility program (unidecode-c)
+
+To see usage for the utility program run `./unidecode-c -h`
+
+## Functions (unidecode-c.h)
 
 ### validutf8
 
@@ -37,6 +41,12 @@ This function:
 * sets *dest to the last byte written (which will be the end of the string)
 
 * returns 1 if successful
+
+### unidecode_u
+
+`int unidecode_u(char **dest, char **src, int maxbytes)`
+
+Exact same as the above, but does not check if the string is invalid.
 
 ## Dependencies
 

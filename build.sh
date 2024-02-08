@@ -22,8 +22,11 @@
 #
 
 
-#	Build script
+#	Building header
 cd src
 python generate_parts.py
 cd ..
 cat src/PART0.h src/PART1.h src/PART2.h src/PART3.h src/PART4.h src/PART5.h > unidecode-c.h
+
+# 	Building utility
+time gcc-7 src/unidecode-c.c -o unidecode-c -I.

@@ -53,19 +53,22 @@ int unidecode(char **dest, char **src, int maxbytes){
 	
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
+same as the above, but doesn't check if the string is valid
+*/ 
+int unidecode_u(char **dest, char **src, int maxbytes){
+	/* flag */
+	int bytesleft = maxbytes;
+	int bytesremoved = 0;
+	
+	while(bytesremoved >= 0 && **src != 0){
+		bytesremoved = cpysingledecoded(dest, src, bytesleft);
+		bytesleft -= bytesremoved;
+	}
+	**dest = 0;
+	return 1;
+	
+}
 
 
 
