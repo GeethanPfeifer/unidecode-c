@@ -91,7 +91,7 @@ If FILE is not specified, uses stdin.\n\
 			(inbuf)[i] = nb;
 		} else {
 			gv = fgetc(in);
-			if(gv == EOF || gv == 0){
+			if(gv == EOF){
 				complete = 1;
 				goto NEXT;
 			}
@@ -99,7 +99,7 @@ If FILE is not specified, uses stdin.\n\
 		}
 		for(i=1; i<BUFFER_SIZE-4; i++){
 			gv = fgetc(in);
-			if(gv == EOF || gv == 0){
+			if(gv == EOF){
 				complete = 1;
 				goto NEXT;
 			}
@@ -110,7 +110,7 @@ If FILE is not specified, uses stdin.\n\
 		/* next byte */
 		gv = fgetc(in);
 		nb = gv;
-		if(gv == EOF || gv == 0){
+		if(gv == EOF){
 			complete = 1;
 			goto NEXT;
 		}
@@ -127,7 +127,7 @@ If FILE is not specified, uses stdin.\n\
 			i++;						/* BUFFERSIZE - 3*/
 			gv = fgetc(in);
 			nb = gv;
-			if(gv == EOF || gv == 0){
+			if(gv == EOF){
 				complete = 1;
 				goto NEXT;
 			}
@@ -144,7 +144,7 @@ If FILE is not specified, uses stdin.\n\
 			i++;						/* BUFFERSIZE - 2*/
 			gv = fgetc(in);
 			nb = gv;
-			if(gv == EOF || gv == 0){
+			if(gv == EOF){
 				complete = 1;
 				goto NEXT;
 			}
@@ -160,7 +160,7 @@ If FILE is not specified, uses stdin.\n\
 			i++;						/* BUFFERSIZE - 1*/
 			gv = fgetc(in);
 			nb = gv;
-			if(gv == EOF || gv == 0){
+			if(gv == EOF){
 				complete = 1;
 				goto NEXT;
 			}
@@ -185,7 +185,7 @@ If FILE is not specified, uses stdin.\n\
 		
 		/* ALL IS READ: now continuously write to outbuf until no input is left, then flush */
 		sr = 1;
-		*inbuft = inbuf; *outbuftt = outbuf;
+		*inbuft = inbuf;
 		while(sr){
 			*outbuft = outbuf;
 			unidecode(outbuft, inbuft, BUFFER_SIZE);

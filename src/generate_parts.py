@@ -42,7 +42,7 @@ def escape_string(str):
 
 
 """ tuple of values:
-	(number, str)
+	(number, str, srcbytes)
 """
 replacevals = []
 
@@ -55,7 +55,7 @@ for i in range(0, 127 + 1):
 	x = unidecode(chr(n))
 	
 	if x:
-		replacevals.append((i, x))
+		replacevals.append((i, x, 1))
 
 n = -1
 """ 2-byte """
@@ -67,7 +67,7 @@ for i in range(192, 223 + 1):
 			x = unidecode(chr(n))
 			
 			if x:
-				replacevals.append((256*i + j, x))
+				replacevals.append((256*i + j, x, 2))
 
 n = -1
 """ 3-byte """
@@ -80,7 +80,7 @@ for i in range(224, 239 + 1):
 				x = unidecode(chr(n))
 				
 				if x:
-					replacevals.append((65536 * i + 256 * j + k, x))
+					replacevals.append((65536 * i + 256 * j + k, x, 3))
 
 """ 4-byte """
 
@@ -103,7 +103,7 @@ for i in range(240, 247 + 1):
 					x = unidecode(chr(n))
 				
 					if x:
-						replacevals.append((16777216 * i + 65536 * j + 256 * k + l, x))
+						replacevals.append((16777216 * i + 65536 * j + 256 * k + l, x, 4))
 			if(b):
 				break
 		if(b):
@@ -120,7 +120,7 @@ f.write("/* This file was created automatically, it is not a source file. */")
 for p in replacevals:
 	f.write("case " + str(p[0]) + ": ")
 	"""no space: return -1 """
-	f.write("if(maxchars < " + str(len(p[1]) + 1) + "){return -1;}")
+	f.write("if(maxchars < " + str(len(p[1]) + 1) + "){(*orig)-=" + str(p[2]) + ";return -1;}")
 	f.write("strcpy(*dest, \"" + escape_string(p[1]) + "\"); (*dest)+= " + str(len(p[1])) + ";return " +   str(len(p[1])) + "; break;")
 
 

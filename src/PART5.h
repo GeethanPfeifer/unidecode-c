@@ -46,7 +46,18 @@ int unidecode(char **dest, char **src, int maxbytes){
 	
 	while(bytesremoved >= 0 && **src != 0){
 		bytesremoved = cpysingledecoded(dest, src, bytesleft);
+		/*  reads until at start of a unicode char  */
+		
+		/*
+		if(bytesremoved < 0){
+			do{
+				(*src)--;
+			}
+			while(**src >= 128 && **src <= 191);
+		}
+		*/
 		bytesleft -= bytesremoved;
+		
 	}
 	**dest = 0;
 	return 1;
@@ -63,7 +74,17 @@ int unidecode_u(char **dest, char **src, int maxbytes){
 	
 	while(bytesremoved >= 0 && **src != 0){
 		bytesremoved = cpysingledecoded(dest, src, bytesleft);
+		/* reads until at start of a unicode char */
+		/*
+		if(bytesremoved < 0){
+			do{
+				(*src)--;
+			}
+			while(**src >= 128 && **src <= 191);
+		}
+		*/
 		bytesleft -= bytesremoved;
+		
 	}
 	**dest = 0;
 	return 1;
