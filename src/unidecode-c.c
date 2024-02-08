@@ -122,9 +122,9 @@ If FILE is not specified, uses stdin.\n\
 			/* noop */
 			
 		} else if(nb >= 128){ /* middle of utf-8 sequence: copy rest of bytes */
-			(inbuf)[i] = nb;				/* BUFFERSIZE - 3*/
+			(inbuf)[i] = nb;				/* BUFFERSIZE - 4*/
 			
-			i++;						/* BUFFERSIZE - 2*/
+			i++;						/* BUFFERSIZE - 3*/
 			gv = fgetc(in);
 			nb = gv;
 			if(gv == EOF || gv == 0){
@@ -141,7 +141,7 @@ If FILE is not specified, uses stdin.\n\
 			(inbuf)[i] = nb;
 			/* note how by elimination, 128 <= nb < 192 */
 			
-			i++;						/* BUFFERSIZE - 1*/
+			i++;						/* BUFFERSIZE - 2*/
 			gv = fgetc(in);
 			nb = gv;
 			if(gv == EOF || gv == 0){
@@ -157,7 +157,7 @@ If FILE is not specified, uses stdin.\n\
 			if(nb >= 192)goto NEXT;
 			(inbuf)[i] = nb;
 			
-			i++;						/* BUFFERSIZE*/
+			i++;						/* BUFFERSIZE - 1*/
 			gv = fgetc(in);
 			nb = gv;
 			if(gv == EOF || gv == 0){
@@ -178,23 +178,23 @@ If FILE is not specified, uses stdin.\n\
 			return 1;
 			
 		}
-		NEXT:;
+		NEXT:; /* at worst: BUFFERSIZE - 1 */
 		(inbuf)[i] = 0;
 		
 		
 		
 		/* ALL IS READ: now continuously write to outbuf until no input is left, then flush */
 		sr = 1;
-		*inbuft = inbuf; *outbuft = outbuf;
+		*inbuft = inbuf; *outbuftt = outbuf;
 		while(sr){
-			*outbuftt = *outbuft;		/* storing old start */
+			*outbuft = outbuf;
 			unidecode(outbuft, inbuft, BUFFER_SIZE);
 			if(errno == EILSEQ){
 				fprintf(stderr, "Error: invalid UTF-8.\n");
 				return 1;
 			}
-			sr = *outbuftt - *outbuft;		/* if this is 0, it has reached the end of the string */
-			fputs(*outbuftt, stdout);
+			sr = *outbuft - outbuf;		/* if this is 0, it has reached the end of the string */
+			fputs(outbuf, stdout);
 		}
 		
 	}
