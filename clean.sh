@@ -2,7 +2,7 @@
 
 #
 #
-#    	This file is part of unidecode-c.h.
+#    	This file is part of unidecode-c.
 #	    Copyright (C) 2024 Geethan Pfeifer
 #
 #   	This program is free software; you can redistribute it and/or modify
