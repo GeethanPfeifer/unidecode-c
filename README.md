@@ -56,9 +56,9 @@ List of dependencies
 
 * unidecode
 
-* **gcc-7**
+* gcc 7 or gcc 11+
 
-Note: The header file has a very long switch statement, [which gcc-8,9,10 struggle with.](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=100393) Presumably this is fixed in gcc-11.
+Note: The header file has a very long switch statement, [which gcc-8,9,10 struggle with.](https://gcc.gnu.org/bugzilla/show_bug.cgi?id=100393)
 
 ## Licensing
 
