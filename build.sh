@@ -40,7 +40,7 @@ else
 	time gcc-11 src/unidecode-c.c -o unidecode-c -I. || time gcc-7 src/unidecode-c.c -o unidecode-c -I. || {
 		echo The installed version\(s\) of GCC have a flaw where compilation may not terminate.
 		echo It is recommended to install GCC-7 or GCC-11+.
-		read -p Would you like to continue? \(Enter \'y\'.\) cnf
+		read -p "Would you like to continue? (Enter 'y'.)" cnf
 		if [ $cnf = "y" ]; then
 			time gcc src/unidecode-c.c -o unidecode-c -I.
 		fi
