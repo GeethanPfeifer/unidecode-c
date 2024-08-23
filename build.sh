@@ -22,11 +22,13 @@
 #
 
 
-#	Building header
+#	Completes header
 cd src
-python generate_parts.py
+python build_completion.py
 cd ..
-cat src/PART0.h src/PART1.h src/PART2.h src/PART3.h src/PART4.h src/PART5.h > unidecode-c.h
+!!!!	TODO: someway to actually complete the header
+
+
 
 #	GCC major version.
 #	This should work for all recent versions of GCC.

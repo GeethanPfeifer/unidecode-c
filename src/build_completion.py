@@ -113,7 +113,7 @@ for i in range(240, 247 + 1):
 """gotophobia considered harmful"""
 				
 				
-f = open("PART3.h", "w")
+f = open("completion.h", "w")
 
 f.write("/* This file was created automatically, it is not a source file. */")
 

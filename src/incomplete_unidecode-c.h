@@ -19,13 +19,9 @@
     
 */
 
-/*
-
-PART1.h:
-	validutf8 -- function that determines whether a string is valid utf8
-	getnextutf8 -- function for getting next utf8 value
-
-*/
+#include <stdint.h>
+#include <errno.h>
+#include <string.h>
 
 int validutf8(char *st){
 	int i;
@@ -98,3 +94,107 @@ uint32_t getnextutf8(char **t){
 		return -1;
 	}
 }
+
+
+
+/*
+	Copies a single decoded character.
+	
+	orig is a pointer to a string, so a getnextutf8 can be used.
+	does not test for validity
+	
+	dest also a pointer to a string, incremented by dest. returns number of chars written.
+	-1 is exceeds maxchars.
+	
+	maxchars includes null terminating char
+*/
+int cpysingledecoded(char **dest, char **orig, int maxchars){
+	uint32_t uv = getnextutf8(orig);
+	switch(uv){
+		
+		/* below line replaced */
+		
+		
+		####
+		
+		
+		/* in case for some reason an error is reached, halt. */
+		/*
+		case -1:
+			return -1;
+			break;
+		*/
+		default:
+			return 0;
+			break;
+	}
+	/* just in case somehow this is reached */
+	return 0;
+}
+
+/*
+returns 1 on success, 0 on failure
+
+copies from pointer in src to pointer in dest, writing a maximum of maxbytes.
+*/
+int unidecode(char **dest, char **src, int maxbytes){
+	/* flag */
+	int bytesleft = maxbytes;
+	int bytesremoved = 0;
+	
+	
+	/* invalid UTF-8, return 0 and set errno to EILSEQ */
+	if(!validutf8(*src)){
+		errno = EILSEQ;
+		return 0;
+	}
+	
+	while(bytesremoved >= 0 && **src != 0){
+		bytesremoved = cpysingledecoded(dest, src, bytesleft);
+		/*  reads until at start of a unicode char  */
+		
+		/*
+		if(bytesremoved < 0){
+			do{
+				(*src)--;
+			}
+			while(**src >= 128 && **src <= 191);
+		}
+		*/
+		bytesleft -= bytesremoved;
+		
+	}
+	**dest = 0;
+	return 1;
+	
+}
+
+/*
+same as the above, but doesn't check if the string is valid
+*/ 
+int unidecode_u(char **dest, char **src, int maxbytes){
+	/* flag */
+	int bytesleft = maxbytes;
+	int bytesremoved = 0;
+	
+	while(bytesremoved >= 0 && **src != 0){
+		bytesremoved = cpysingledecoded(dest, src, bytesleft);
+		/* reads until at start of a unicode char */
+		/*
+		if(bytesremoved < 0){
+			do{
+				(*src)--;
+			}
+			while(**src >= 128 && **src <= 191);
+		}
+		*/
+		bytesleft -= bytesremoved;
+		
+	}
+	**dest = 0;
+	return 1;
+	
+}
+
+
+
