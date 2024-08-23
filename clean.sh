@@ -24,4 +24,4 @@
 
 #	    Clean script
 
-rm "src/PART3.h" "unidecode-c.h" "unidecode-c"
+rm "src/completion.h" "unidecode-c.h" "unidecode-c" "src/xx00" "src/xx01"

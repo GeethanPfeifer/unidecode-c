@@ -25,9 +25,9 @@
 #	Completes header
 cd src
 python build_completion.py
+csplit --suppress-matched incomplete_unidecode-c.h '/####/'
 cd ..
-!!!!	TODO: someway to actually complete the header
-
+cat src/xx00 src/completion.h src/xx01 > unidecode-c.h
 
 
 #	GCC major version.
